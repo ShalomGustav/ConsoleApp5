@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleApp5
 {
@@ -16,7 +13,6 @@ namespace ConsoleApp5
             var task1 = arrayNumber.Where(x => x % 2 == 0).Sum();
             Console.WriteLine(task1);
             
-
             var modelsOfStudents = new List<InformationOnStudent>
             {
                 new InformationOnStudent {FirstName = "Алексей", LastName = "Иванов", Age = 25, Course = 4, Gpa = 3},
@@ -30,14 +26,12 @@ namespace ConsoleApp5
             };
 
             var task2 = modelsOfStudents.Where(x => x.Gpa == 3).Select(y => $"{y.FirstName} {y.LastName} {y.Course} {y.Age}").ToList();
-            var task21 = modelsOfStudents.GroupBy(x => x.Course).ToList();
+            var taskAge = modelsOfStudents.GroupBy(x => x.Age).ToList();
+            var taskCourse = modelsOfStudents.GroupBy(x => x.Course).ToList();
 
             OutList(task2);
-            Console.WriteLine(task21);
-
-
-
-
+            OutListAge(taskAge);
+            OutListCourse(taskCourse);
         }
 
        public class InformationOnStudent
@@ -56,8 +50,33 @@ namespace ConsoleApp5
             }
         }
 
-        public static void OutList(List<IGrouping<int, InformationOnStudent>> groppingInformation)
+        public static void OutListAge(List<IGrouping<int, InformationOnStudent>> groppingInformation)
         {
+            foreach (var ages in groppingInformation)
+            {
+                Console.WriteLine($"Возраст {ages.Key}");
+
+                foreach (var info in ages)
+                {
+                    Console.WriteLine($"{info.FirstName} {info.LastName}");
+                    Console.WriteLine();
+                }
+            }
+
+        }
+
+        public static void OutListCourse(List<IGrouping<int, InformationOnStudent>> groppingInformation)
+        {
+            foreach (var ages in groppingInformation)
+            {
+                Console.WriteLine($"курс {ages.Key}");
+
+                foreach (var info in ages)
+                {
+                    Console.WriteLine($"{info.FirstName} {info.LastName}");
+                    Console.WriteLine();
+                }
+            }
 
         }
 
